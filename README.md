@@ -32,15 +32,13 @@ pip installl -r requirements.txt
 
 # File List
 
-# Make_gif.py
+## Make_gif.py
 
-
+This file contain the train and test mode, you only need to **change this file in the file end and run it**
 
 ## PPO.py
 
 Main Algorithm
-
-
 
 # Train
 
@@ -68,7 +66,7 @@ list_gif_size(env_name)
 
 # Pretrained Model
 
-I trained 2 Model:Determinstic and Stochastic
+I trained 2 Model:**Determinstic** and **Stochastic**
 
 They correspond to different settings of a parameter of the environment, As the following
 
