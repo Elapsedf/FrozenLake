@@ -26,7 +26,7 @@ and torch==2.1.0+cu118, both could Work
 pip installl -r requirements.txt
 ```
 
-**When you want to train a new model in Stochasitic Mode, Please make sure your GPU memroy has 24GB or larger**
+**When you want to train a new model in Stochasitic Mode, Please make sure your GPU memory is Enough, If you find CUDA out of memroy, Try to decline the `update_freq`. As this parameter gets larger, it will consume more memory **
 
 
 
