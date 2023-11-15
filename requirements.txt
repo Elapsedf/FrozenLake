@@ -1,0 +1,6 @@
+NumPy
+gym==0.25.2
+pybullet
+matplotlib
+pandas
+gym[toy_text]
