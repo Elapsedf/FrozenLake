@@ -22,7 +22,7 @@ and torch==2.1.0+cu118, both could Work
 ## Requirements
 
 ```bash
-#git clone
+git clone https://github.com/Elapsedf/FrozenLake.git
 pip installl -r requirements.txt
 ```
 
