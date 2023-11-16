@@ -88,9 +88,10 @@ The following are the train result, and the ideal result is **1**
 		<tr>
 			<td style="padding: 6px"><img src="http://cdn.elapsedf.cn/202311161011185.png" ></td>
 		</tr>
-        <tr><td><strong>Figure1: Deterministic Result</strong></td></tr>
+        <tr><td><center><strong>Figure1: Deterministic Result</strong></center></td></tr>
 	</tbody>
 </table>
+
 
 but in the Stochastic mode the result is not so good for the environment effect
 
@@ -106,7 +107,7 @@ So the Results are the following
 		<tr>
 			<td style="padding: 6px"><img src="http://cdn.elapsedf.cn/202311161024572.png" ></td><td><img src="http://cdn.elapsedf.cn/202311161031224.png" ></td>
 		</tr>
-        <tr><td><strong>Figure2:First Phase</strong></td><td><strong>Figure3:Second Phase(Final Result)</strong></td></tr>
+        <tr><td><center><strong>Figure2:First Phase</strong></center></td><td><center><strong>Figure3:Second Phase(Final Result)</strong></center></td></tr>
 	</tbody>
 </table>
 
