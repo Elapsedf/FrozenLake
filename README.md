@@ -66,7 +66,7 @@ list_gif_size(env_name)
 
 # Pretrained Model
 
-I trained 2 Model:**Determinstic** and **Stochastic**
+I trained 2 Model:**Determinstic** and **Stochastic**, both are in the `PreTrained` dir
 
 They correspond to different settings of a parameter of the environment, As the following
 
@@ -78,3 +78,35 @@ env = gym.make("FrozenLake-v1")		# Stochastic
 Deterministic Mode: The State Transition is depend on the Action which is chosen by the Actor Network
 
 Stochastic Mode:State transfer in the environment is a stochastic process, i.e. the final outcome of the state transition does not depend only on the action but is also influenced by the environment
+
+The following are the train result, and the ideal result is **1**
+
+
+
+　　<table style="border:none;text-align:center;width:auto;margin: 0 auto;">
+	<tbody>
+		<tr>
+			<td style="padding: 6px"><img src="http://cdn.elapsedf.cn/202311161011185.png" ></td>
+		</tr>
+        <tr><td><strong>Figure1: Deterministic Result</strong></td></tr>
+	</tbody>
+</table>
+
+but in the Stochastic mode the result is not so good for the environment effect
+
+So I Training in two phases
+
+- In the First phases,I train a model and save it
+- In the Second phases, I train a new model base on the previous model in first phases
+
+So the Results are the following
+
+　　<table style="border:none;text-align:center;width:auto;margin: 0 auto;">
+	<tbody>
+		<tr>
+			<td style="padding: 6px"><img src="http://cdn.elapsedf.cn/202311161024572.png" ></td><td><img src="http://cdn.elapsedf.cn/202311161031224.png" ></td>
+		</tr>
+        <tr><td><strong>Figure2:First Phase</strong></td><td><strong>Figure3:Second Phase(Final Result)</strong></td></tr>
+	</tbody>
+</table>
+
