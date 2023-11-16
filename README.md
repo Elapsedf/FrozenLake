@@ -23,7 +23,7 @@ and torch==2.1.0+cu118, both could Work
 
 ```bash
 git clone https://github.com/Elapsedf/FrozenLake.git
-pip installl -r requirements.txt
+pip install -r requirements.txt
 ```
 
 **When you want to train a new model in Stochasitic Mode, Please make sure your GPU memory is Enough, If you find CUDA out of memroy, Try to decline the `update_freq`. As this parameter gets larger, it will consume more memory**
@@ -111,3 +111,6 @@ So the Results are the following
 	</tbody>
 </table>
 
+# Result
+
+**The gif result please see the gif dir**
