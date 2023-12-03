@@ -11,7 +11,7 @@ import gym
 #import roboschool
 
 # import pybullet_envs
-
+import pdb
 from PPO import PPO
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -94,7 +94,8 @@ def save_gif_images(env_name, has_continuous_action_space, max_ep_len, action_st
 	
 
 
-	K_epochs = 80               # update policy for K epochs
+	#K_epochs = 80               # update policy for K epochs
+	K_epochs = 80
 	eps_clip = 0.2              # clip parameter for PPO
 	gamma = 0.99                # discount factor
 
@@ -177,6 +178,7 @@ def save_gif_images(env_name, has_continuous_action_space, max_ep_len, action_st
 		flag=0
 		for t in range(1, max_ep_len+1):
 			action = ppo_agent.select_action(state)
+			#pdb.set_trace()
 			state, reward, done, _ = env.step(action)
 			ep_reward += reward
 			
@@ -338,14 +340,14 @@ def list_gif_size(env_name):
 	print("============================================================================================")
 
 
-def test():
+def test(env_name, try_time, reach_goal_time):
 	K_epochs = 80               # update policy for K epochs
 	eps_clip = 0.2              # clip parameter for PPO
 	gamma = 0.99                # discount factor
 
 	lr_actor = 0.0003         # learning rate for actor
 	lr_critic = 0.001         # learning rate for critic
-	env = gym.make(env_name)
+	env = gym.make(env_name,is_slippery=False)
 	if has_continuous_action_space:
 		action_dim = env.action_space.shape
 	else:
@@ -353,9 +355,9 @@ def test():
 	
 	state_dim=1
 	directory = dir+"PPO_preTrained" + '/' + env_name + '/'
-	checkpoint_path = directory + "PPO_{}_{}_{}.pth".format(env_name, random_seed, run_num_pretrained)
+	checkpoint_path = directory + "PPO_{}_{}_{}_deterministic.pth".format(env_name, random_seed, run_num_pretrained)
 	print("============================================================================================")
-	print("Load the Pretrained Model: PPO_{}_{}_{}.pth".format(env_name, random_seed, run_num_pretrained))
+	print("Load the Pretrained Model: PPO_{}_{}_{}_deterministic.pth".format(env_name, random_seed, run_num_pretrained))
 	print("============================================================================================")
 	# make directory for saving gif images
 	gif_images_dir = dir+"PPO_gif_images" + '/'
@@ -411,20 +413,27 @@ def test():
 		
 		if (done == True) or (t==max_ep_len):
 			print("Reward :", ep_reward)
+			try_time += 1
 			if (ep_reward !=1) or t>=7:
+				
+				if ep_reward ==1:
+					reach_goal_time += 1
 				try:
         # 删除文件夹中的所有内容，包括子文件夹和文件
 					shutil.rmtree(img_dir_path)
 					print(f"Contents of {img_dir_path} deleted successfully.")
 				except Exception as e:
 					print(f"An error occurred: {e}")
-				test()
+				test(env_name, try_time, reach_goal_time)
 			else:
+				reach_goal_time += 1
 				img = env.render(mode = 'rgb_array')
 				img = Image.fromarray(img)
 				img_path=img_dir_path +  f"test_t_{str(t+1).zfill(6)}"  + '.jpg'
 				img.save(img_path)
 				print("Reach the Goal Successfully!")
+				print("Total try {} times".format(try_time))
+				print("Total reach goal {} times".format(reach_goal_time))
 			break
 	#save_gif(env_name)
 	
@@ -471,14 +480,14 @@ if __name__ == '__main__':
 
 	action_std = None           # set same std for action distribution which was used while saving
 
-	update_freq = int(1e3)			# set this to change the freq of update agent	Note that this value shouldn't be too high, or CUDA will out of memroy 
+	update_freq = int(500)			# set this to change the freq of update agent	Note that this value shouldn't be too high, or CUDA will out of memroy 
 	log_freq = int(1e3)				# set this to change the freq of lof reward
 	plot_freq = int(1e3)				# set this to change the freq of plot result
 	save_model_freq = int(1e3)		# set this to change the freq of save model
 
 	random_seed = 0             #### set this to load a particular checkpoint trained on random seed
-	run_num_pretrained = 3      #### set this to load a particular checkpoint num
-	save_num_pretrained = 4		#### set this to save a particular checkpoint num
+	run_num_pretrained = 0      #### set this to load a particular checkpoint num
+	save_num_pretrained = 0		#### set this to save a particular checkpoint num
 	start_time = datetime.now().replace(microsecond=0)
 
 	pretrained = True			## set this to decide whether load a pretrained model
@@ -490,8 +499,10 @@ if __name__ == '__main__':
 	# action_std = 0.1            # set same std for action distribution which was used while saving
 
 	# save .jpg images in PPO_gif_images folder
-	save_gif_images(env_name, has_continuous_action_space, max_ep_len, action_std, pretrained)
-	#test()
+	#save_gif_images(env_name, has_continuous_action_space, max_ep_len, action_std, pretrained)
+	try_time = 0
+	reach_goal_time = 0
+	test(env_name, try_time, reach_goal_time)
 	# save .gif in PPO_gifs folder using .jpg images
 	save_gif(env_name)
 
