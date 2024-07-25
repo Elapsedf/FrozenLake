@@ -1,3 +1,8 @@
+# Introduction
+This repo applies the PPO algorithm on the FrozenLake environment.
+
+If the repo helps you, star it 🤗
+
 # Install
 
 ## Envs
